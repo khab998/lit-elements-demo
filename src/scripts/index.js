@@ -25,18 +25,16 @@ class MyElement extends LitElement {
             `
         )}
       </ul>
-      ${this.myBool
-        ? html`
-            <p>Render some HTML if myBool is true</p>
-          `
-        : html`
-            <p>Render some other HTML if myBool is false</p>
-          `}
-      <button @click=${this.clickHandler}>Click</button>
+      <input type="radio" name="radio" @change=${
+        this.clickHandler
+      }>Click</button>
+      <input type="radio" name="radio" @change=${
+        this.clickHandler
+      }>Click</button>
     `;
   }
   clickHandler(event) {
-    console.log(event.target);
+    console.log(event);
     this.myBool = !this.myBool;
   }
 }
