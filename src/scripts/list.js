@@ -4,52 +4,76 @@ import data from "./profiles";
 class ListElement extends LitElement {
   static get properties() {
     return {
-      profiles: { type: Array }
+      profiles: { type: Array },
+      isEdit: { type: Boolean }
     };
   }
   constructor() {
     super();
     this.profiles = data;
-    console.log(this.profile);
+    this.isEdit = false;
   }
-
   render() {
     return html`
       <ul>
+        <h1>例題</h1>
         ${this.profiles.map(
           item =>
             html`
-              <li>${item}</li>
-
-              <span
-                >Name:<input value=${item.name} name="name" id="name"/>
+              <li>
+                <span
+                  >Name:
+                  <input
+                    value=${item.name}
+                    @change=${this.handleChange}
+                    name="name"
+                    id="name"
+                /></span>
                 <span
                   >Birthday:
-                  <input value=${item.birthday} name="birthday" id="birthday"/>
-                  <span
-                    >Skill:<input
-                      value=${item.skill}
-                      name="skill"
-                      id="birthday"
-                    /> </span></span
-              ></span>
-
-              ${this.item ? html`
-              <span><id="name" value=${item.name}></span>
-              <span><id="birthday" value-${item.name}></span>
-              <span><id="skill" value=${item.skill}</span>
-            ` : html`<p>aa</p>`}
-        )};
+                  <input
+                    value=${item.birth}
+                    @change=${this.handleChange}
+                    name="birthday"
+                    id="birthday"
+                /></span>
+                <span
+                  >Skill:<input
+                    value=${item.skill}
+                    @change=${this.handleChange}
+                    name="skill"
+                    id="skill"
+                /></span>
+                ${this.item
+                  ? html`
+                      <li>
+                        <span>Name:${item.name}></span>
+                        <span>Birth:${item.birth}></span>
+                        <span>Skill:${item.skill}</span>
+                      </li>
+                    `
+                  : html`
+                </li>
+                  `}
+              </li>
+            `
+        )}
       </ul>
-      <p>
-        1. 上記が[object
-        Object]となっているのでそれを直す。実際はnameやbirth,skillという情報を表示したいです
-      </p>
-      <p>
-        2. [object Object]が直ったら記載されている情報を修正したいです。
-        方法は色々ありますが、とりあえず色々考えてやってみてください。
-      </p>
+      ${this.isEdit
+        ? html`
+            <button @click=${this.handleClick}>reserve</button>
+          `
+        : html`
+            <button @click=${this.handleClick}>edit</button>
+          `}
     `;
+  }
+  handleClick() {
+    this.isEdit = !this.isEdit;
+  }
+  handleChange(event) {
+    var value = console.log(event.currentTarget.value);
+    var place = console.log(event.currentTarget.name);
   }
 }
 customElements.define("artist-list", ListElement);
