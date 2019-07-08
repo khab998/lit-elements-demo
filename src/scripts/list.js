@@ -17,46 +17,54 @@ class ListElement extends LitElement {
     return html`
       <ul>
         <h1>例題</h1>
-        ${this.profiles.map(
-          item =>
-            html`
-              <li>
-                <span
-                  >Name:
-                  <input
-                    value=${item.name}
-                    @change=${this.handleChange}
-                    name="name"
-                    id="name"
-                /></span>
-                <span
-                  >Birthday:
-                  <input
-                    value=${item.birth}
-                    @change=${this.handleChange}
-                    name="birthday"
-                    id="birthday"
-                /></span>
-                <span
-                  >Skill:<input
-                    value=${item.skill}
-                    @change=${this.handleChange}
-                    name="skill"
-                    id="skill"
-                /></span>
-                ${this.item
-                  ? html`
-                      <li>
-                        <span>Name:${item.name}></span>
-                        <span>Birth:${item.birth}></span>
-                        <span>Skill:${item.skill}</span>
-                      </li>
-                    `
-                  : html`
+        ${this.profiles.map(item =>
+          this.isEdit
+            ? html`
+                <li>
+                  <span
+                    >Name:
+                    <input
+                      value=${item.name}
+                      @change=${this.handleChange}
+                      @focus=${this.focus}
+                      @blur=${this.blur}
+                      @mouseover="${this.over}「"
+                      @mouseout=${this.out}
+                      name="name"
+                      id="name"
+                  /></span>
+                  <span
+                    >Birthday:
+                    <input
+                      value=${item.birth}
+                      @change=${this.handleChange}
+                      @focus=${this.focus}
+                      @blur=${this.blur}
+                      @mouseover=${this.over}
+                      @mouseout=${this.out}
+                      name="birthday"
+                      id="birthday"
+                  /></span>
+                  <span
+                    >Skill:<input
+                      value=${item.skill}
+                      @change=${this.handleChange}
+                      @focus=${this.focus}
+                      @blur=${this.blur}
+                      @mouseover=${this.over}
+                      @mouseout=${this.out}
+                      name="skill"
+                      id="skill"
+                  /></span>
                 </li>
-                  `}
-              </li>
-            `
+              `
+            : html`
+                <li>
+                  <span>Name: ${item.name}</span><br />
+                  <span>Birth: ${item.birth}</span><br />
+                  <span>Skill: ${item.skill}</span><br />
+                </li>
+              `
         )}
       </ul>
       ${this.isEdit // @clickに渡すメソッド名を変えれば変わるよ
@@ -79,6 +87,18 @@ class ListElement extends LitElement {
   handleChange(event) {
     var value = console.log(event.currentTarget.value);
     var place = console.log(event.currentTarget.name);
+  }
+  focus(event) {
+    event.target.style.background = "pink";
+  }
+  blur(event) {
+    event.target.style.background = "";
+  }
+  over(event) {
+    event.target.style.color = "blue";
+  }
+  out(event) {
+    event.target.style.color = "black";
   }
 }
 customElements.define("artist-list", ListElement);
