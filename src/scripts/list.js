@@ -59,9 +59,9 @@ class ListElement extends LitElement {
             `
         )}
       </ul>
-      ${this.isEdit
+      ${this.isEdit // @clickに渡すメソッド名を変えれば変わるよ
         ? html`
-            <button @click=${this.handleClick}>reserve</button>
+            <button @click=${this.handleReserve}>reserve</button>
           `
         : html`
             <button @click=${this.handleClick}>edit</button>
@@ -69,6 +69,11 @@ class ListElement extends LitElement {
     `;
   }
   handleClick() {
+    this.isEdit = !this.isEdit;
+  }
+  // こんな感じで追加
+  handleReserve() {
+    alert("reserve");
     this.isEdit = !this.isEdit;
   }
   handleChange(event) {
