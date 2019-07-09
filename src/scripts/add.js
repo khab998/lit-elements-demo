@@ -9,6 +9,7 @@ class AddElement extends LitElement {
   constructor() {
     super();
     this.usertype = "";
+    this.demoValue = "";
   }
   render() {
     return html`
@@ -26,10 +27,19 @@ class AddElement extends LitElement {
       </p>
         <button id="button" @click=${this.appendtyped}>add</button>
       </div>
+      <!-- ここが追記 -->
+      <p>例: <input value="" @change=${this.handleDemoChange} /></p>
+      <button @click=${this.currentValue}>Show!!</button>
     `;
   }
   appendtyped(event) {
     console.log(event.currentTarget);
+  }
+  handleDemoChange(event) {
+    this.demoValue = event.currentTarget.value;
+  }
+  currentValue() {
+    alert(`現在の値: ${this.demoValue}`);
   }
 }
 customElements.define("add-element", AddElement);
