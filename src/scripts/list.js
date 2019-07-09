@@ -5,13 +5,15 @@ class ListElement extends LitElement {
   static get properties() {
     return {
       profiles: { type: Array },
-      isEdit: { type: Boolean }
+      isEdit: { type: Boolean },
+      usertype: { type: String }
     };
   }
   constructor() {
     super();
     this.profiles = data;
     this.isEdit = false;
+    this.usertype = "";
   }
   render() {
     return html`
@@ -22,17 +24,11 @@ class ListElement extends LitElement {
             ? html`
                 <li>
                   <span
-                    >Name:
-                    <input
-                      value=${item.name}
-                      @change=${this.handleChange}
-                      @focus=${this.focus}
-                      @blur=${this.blur}
-                      @mouseover="${this.over}「"
-                      @mouseout=${this.out}
-                      name="name"
-                      id="name"
-                  /></span>
+                    >Name: <input value=${item.name}
+                    @change=${this.handleChange} @focus=${this.focus}
+                    @blur=${this.blur} @mouseover="${this.over}
+                    @mouseout=${this.out} name="name" id="name" /></span
+                  >
                   <span
                     >Birthday:
                     <input
@@ -66,14 +62,29 @@ class ListElement extends LitElement {
                 </li>
               `
         )}
+        <span></span>
       </ul>
-      ${this.isEdit // @clickに渡すメソッド名を変えれば変わるよ
-        ? html`
-            <button @click=${this.handleReserve}>reserve</button>
-          `
-        : html`
-            <button @click=${this.handleClick}>edit</button>
-          `}
+      ${
+        this.isEdit // @clickに渡すメソッド名を変えれば変わるよ
+          ? html`
+              <button @click=${this.handleReserve}>reserve</button>
+            `
+          : html`
+              <button @click=${this.handleClick}>edit</button>
+            `
+      }
+      <p>
+        <span>Name: <input value=${this.usertype} id="name" name="name"/></span
+        ><br />
+        <span
+          >Birth:<input value=${this.usertype} id="birth" name="birth"/></span
+        ><br />
+        <span
+          >Skill: <input value=${this.usertype} id="skill" name="skill"/></span
+        ><br />
+      </p>
+        <button id="button" @click=${this.appendtyped}>add</button>
+      </div>
     `;
   }
   handleClick() {
@@ -95,10 +106,13 @@ class ListElement extends LitElement {
     event.target.style.background = "";
   }
   over(event) {
-    event.target.style.color = "blue";
+    event.target.style.color = "black";
   }
   out(event) {
     event.target.style.color = "black";
+  }
+  appendtyped(event) {
+    console.log(event.currentTarget);
   }
 }
 customElements.define("artist-list", ListElement);
