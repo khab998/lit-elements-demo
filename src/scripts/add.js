@@ -3,33 +3,30 @@ import { LitElement, html } from "lit-element";
 class AddElement extends LitElement {
   static get properties() {
     return {
-      usertype: { type: String }
+      lists: { type: Array },
+      demoValue: { type: String }
     };
   }
   constructor() {
     super();
-    this.usertype = "";
+    this.lists = [];
     this.demoValue = "";
   }
   render() {
     return html`
-      <ul>
-        <h1>例題</h1>
+      <h1>例題</h1>
+      ${this.lists.map(
+        v =>
+          html`
+            <p>${v}</p>
+          `
+      )}
       <p>
-        <span>Name: <input value=${this.usertype} id="name" name="name"/></span
-        ><br />
-        <span
-          >Birth:<input value=${this.usertype} id="birth" name="birth"/></span
-        ><br />
-        <span
-          >Skill: <input value=${this.usertype} id="skill" name="skill"/></span
-        ><br />
+        例:
+        <!-- lit-elementの仕様でinputのvalueは.valueで指定するらしい -->
+        <input .value="${this.demoValue}" @change=${this.handleDemoChange} />
       </p>
-        <button id="button" @click=${this.appendtyped}>add</button>
-      </div>
-      <!-- ここが追記 -->
-      <p>例: <input value="" @change=${this.handleDemoChange} /></p>
-      <button @click=${this.currentValue}>Show!!</button>
+      <button @click=${this.currentValue}>Push</button>
     `;
   }
   appendtyped(event) {
@@ -39,7 +36,8 @@ class AddElement extends LitElement {
     this.demoValue = event.currentTarget.value;
   }
   currentValue() {
-    alert(`現在の値: ${this.demoValue}`);
+    this.lists.push(this.demoValue);
+    this.demoValue = "";
   }
 }
 customElements.define("add-element", AddElement);
