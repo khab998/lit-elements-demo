@@ -4,115 +4,98 @@ import data from "./profiles";
 class ListElement extends LitElement {
   static get properties() {
     return {
-      profiles: { type: Array },
-      isEdit: { type: Boolean },
-      usertype: { type: String }
+      lists: { type: Array },
+      demoObject: { type: Object }
     };
   }
   constructor() {
     super();
-    this.profiles = data;
-    this.isEdit = false;
-    this.usertype = "";
+    this.lists = [];
+    this.demoObject = {
+      name: "",
+      birth: "",
+      skill: ""
+    };
   }
   render() {
     return html`
-      <ul>
-        <h1>例題</h1>
-        ${this.profiles.map(item =>
-          this.isEdit
-            ? html`
-                <li>
-                  <span
-                    >Name: <input value=${item.name}
-                    @change=${this.handleChange} @focus=${this.focus}
-                    @blur=${this.blur} @mouseover="${this.over}
-                    @mouseout=${this.out} name="name" id="name" /></span
-                  >
-                  <span
-                    >Birthday:
-                    <input
-                      value=${item.birth}
-                      @change=${this.handleChange}
-                      @focus=${this.focus}
-                      @blur=${this.blur}
-                      @mouseover=${this.over}
-                      @mouseout=${this.out}
-                      name="birthday"
-                      id="birthday"
-                  /></span>
-                  <span
-                    >Skill:<input
-                      value=${item.skill}
-                      @change=${this.handleChange}
-                      @focus=${this.focus}
-                      @blur=${this.blur}
-                      @mouseover=${this.over}
-                      @mouseout=${this.out}
-                      name="skill"
-                      id="skill"
-                  /></span>
-                </li>
-              `
-            : html`
-                <li>
-                  <span>Name: ${item.name}</span><br />
-                  <span>Birth: ${item.birth}</span><br />
-                  <span>Skill: ${item.skill}</span><br />
-                </li>
-              `
-        )}
-        <span></span>
-      </ul>
-      ${
-        this.isEdit // @clickに渡すメソッド名を変えれば変わるよ
-          ? html`
-              <button @click=${this.handleReserve}>reserve</button>
-            `
-          : html`
-              <button @click=${this.handleClick}>edit</button>
-            `
-      }
+      <style>
+        :host {
+          text-align: center;
+          margin-top: 35%;
+          font-family: Roboto;
+          font-style: oblique;
+        }
+      </style>
+
+      <h1>Registration</h1>
+
+      ${this.lists.map(
+        val => html`
+          <p>Names: ${val.name}</p>
+          <p>Birthday: ${val.birth}</p>
+          <p>Skill: ${val.skill}</p>
+        `
+      )}
+
       <p>
-        <span>Name: <input value=${this.usertype} id="name" name="name"/></span
+        <span
+          >Name:
+          <input
+            .value="${this.demoObject.name}"
+            @change=${this.handleDemoChange}
+            id="name"
+            name="nombre"
+            data-props="name"
+          /> </span
         ><br />
         <span
-          >Birth:<input value=${this.usertype} id="birth" name="birth"/></span
+          >Birth:
+          <input
+            .value="${this.demoObject.birth}"
+            @change=${this.handleDemoChange}
+            id="birthday"
+            name="birth"
+            data-props="birth"
+          /> </span
         ><br />
         <span
-          >Skill: <input value=${this.usertype} id="skill" name="skill"/></span
+          >Skill:
+          <input
+            .value="${this.demoObject.skill}"
+            @change=${this.handleDemoChange}
+            id="skill"
+            name="skiller"
+            data-props="skill"
+          /> </span
         ><br />
       </p>
-        <button id="button" @click=${this.appendtyped}>add</button>
-      </div>
+      <p>
+        <button id="button" @click=${this.currentValue}>Add</button>
+      </p>
+      <p>
+        <button id="edit" @click=${this.editContents}>Edit</button>
+      </p>
+      <p>
+        <button id="delete" @click=${this.deleteContents}>Delete</button>
+      </p>
     `;
   }
-  handleClick() {
-    this.isEdit = !this.isEdit;
+
+  handleDemoChange(event) {
+    const props = event.currentTarget.dataset.props;
+    this.demoObject[props] = event.currentTarget.value;
   }
-  // こんな感じで追加
-  handleReserve() {
-    alert("reserve");
-    this.isEdit = !this.isEdit;
+  currentValue() {
+    this.lists.push(this.demoObject);
+    this.demoObject = {
+      name: "",
+      birth: "",
+      skill: ""
+    };
   }
-  handleChange(event) {
-    var value = console.log(event.currentTarget.value);
-    var place = console.log(event.currentTarget.name);
-  }
-  focus(event) {
-    event.target.style.background = "pink";
-  }
-  blur(event) {
-    event.target.style.background = "";
-  }
-  over(event) {
-    event.target.style.color = "black";
-  }
-  out(event) {
-    event.target.style.color = "black";
-  }
-  appendtyped(event) {
-    console.log(event.currentTarget);
-  }
+  editContents() {}
+
+  deleteContents() {}
 }
 customElements.define("artist-list", ListElement);

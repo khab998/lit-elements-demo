@@ -16,20 +16,21 @@ class AddElement extends LitElement {
       <ul>
         <h1>例題</h1>
       <p>
-        <span>Name: <input value=${this.usertype} id="name" name="name"/></span
+        <span>Name: <input value="" @change=${this.handleDemoChange} id="name" name="name"/></span
         ><br />
         <span
-          >Birth:<input value=${this.usertype} id="birth" name="birth"/></span
+          >Birth:<input value="" @change=${this.handleDemoChange} id="birth" name="birth"/></span
         ><br />
         <span
-          >Skill: <input value=${this.usertype} id="skill" name="skill"/></span
+          >Skill: <input value="" @change=${this.handleDemoChange} id="skill" name="skill"/></span
         ><br />
       </p>
-        <button id="button" @click=${this.appendtyped}>add</button>
+        <button id="button" @click=${this.currentValue}>add</button>
       </div>
       <!-- ここが追記 -->
       <p>例: <input value="" @change=${this.handleDemoChange} /></p>
       <button @click=${this.currentValue}>Show!!</button>
+    
     `;
   }
   appendtyped(event) {
