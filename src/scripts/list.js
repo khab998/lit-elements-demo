@@ -1,5 +1,4 @@
 import { LitElement, html } from "lit-element";
-import data from "./profiles";
 
 class ListElement extends LitElement {
   static get properties() {
@@ -38,56 +37,58 @@ class ListElement extends LitElement {
         `
       )}
 
-      <p>
-        <span
-          >Name:
-          <input
-            .value="${this.demoObject.name}"
-            @change=${this.handleDemoChange}
-            id="name"
-            name="nombre"
-            data-props="name"
-          /> </span
-        ><br />
-        <span
-          >Birth:
-          <input
-            .value="${this.demoObject.birth}"
-            @change=${this.handleDemoChange}
-            id="birthday"
-            name="birth"
-            data-props="birth"
-          /> </span
-        ><br />
-        <span
-          >Skill:
-          <input
-            .value="${this.demoObject.skill}"
-            @change=${this.handleDemoChange}
-            id="skill"
-            name="skiller"
-            data-props="skill"
-          /> </span
-        ><br />
-      </p>
-      <p>
+      <div>
+        <span>Name:</span>
+        <input
+          type="text"
+          .value="${this.demoObject.name}"
+          @change="${this.handleDemoChange}"
+          id="name"
+          name="nombre"
+          data-props="name"
+        />
+      </div>
+      <div>
+        <span>Birth:</span>
+        <input
+          type="text"
+          .value="${this.demoObject.birth}"
+          @change="${this.handleDemoChange}"
+          id="birthday"
+          name="birth"
+          data-props="birth"
+        />
+      </div>
+      <div>
+        <span>Skill:</span>
+        <input
+          type="text"
+          .value="${this.demoObject.skill}"
+          @change="${this.handleDemoChange}"
+          id="skill"
+          name="skiller"
+          data-props="skill"
+        />
+      </div>
+      <div>
         <button id="button" @click=${this.currentValue}>Add</button>
-      </p>
-      <p>
         <button id="edit" @click=${this.editContents}>Edit</button>
-      </p>
-      <p>
         <button id="delete" @click=${this.deleteContents}>Delete</button>
-      </p>
+      </div>
     `;
   }
-
   handleDemoChange(event) {
     const props = event.currentTarget.dataset.props;
-    this.demoObject[props] = event.currentTarget.value;
+    // this.demoObject[props] = event.currentTarget.value;
+    // this.requestUpdate();
+    this.demoObject = {
+      ...this.demoObject,
+      [props]: event.currentTarget.value
+    };
+    console.log(this.demoObject);
   }
   currentValue() {
-    this.lists.push(this.demoObject);
+    this.lists = [...this.lists, this.demoObject];
     this.demoObject = {
       name: "",
       birth: "",
