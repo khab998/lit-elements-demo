@@ -5,7 +5,8 @@ class ListElement extends LitElement {
   static get properties() {
     return {
       lists: { type: Array },
-      demoObject: { type: Object }
+      demoObject: { type: Object },
+      edit: { type: Boolean }
     };
   }
   constructor() {
@@ -16,6 +17,7 @@ class ListElement extends LitElement {
       birth: "",
       skill: ""
     };
+    this.edit = false;
   }
   render() {
     return html`
@@ -32,9 +34,21 @@ class ListElement extends LitElement {
 
       ${this.lists.map(
         val => html`
-          <p>Names: ${val.name}</p>
-          <p>Birthday: ${val.birth}</p>
-          <p>Skill: ${val.skill}</p>
+          <p>
+            <span @click=${this.figureChange} data-props="valName">
+              Names: ${val.name}
+            </span>
+          </p>
+          <p>
+            <span @click=${this.figureChange} data-props="valBirth">
+              Birthday: ${val.birth}
+            </span>
+          </p>
+          <p>
+            <span @click=${this.figureChange} data-props="valSkill">
+              Skill: ${val.skill}
+            </span>
+          </p>
         `
       )}
 
@@ -62,7 +76,7 @@ class ListElement extends LitElement {
         <span
           >Skill:
           <input
-            .value="${this.demoObject.skill}"
+            .value=${this.demoObject.skill}
             @change=${this.handleDemoChange}
             id="skill"
             name="skiller"
@@ -93,6 +107,14 @@ class ListElement extends LitElement {
       birth: "",
       skill: ""
     };
+  }
+  figureChange(event) {
+    this.edit = !this.edit;
+    console.log(event);
+    console.log(event.currentTarget.dataset.props);
+    const props = event.currentTarget.dataset.props;
+    this.figureChange[props] = event.currentTarget.value;
+    this.lists.shift(this.figureChange);
   }
   editContents() {}
 

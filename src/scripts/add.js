@@ -13,7 +13,6 @@ class AddElement extends LitElement {
   }
   render() {
     return html`
-      <ul>
         <h1>例題</h1>
       <p>
         <span>Name: <input value="" @change=${this.handleDemoChange} id="name" name="name"/></span
