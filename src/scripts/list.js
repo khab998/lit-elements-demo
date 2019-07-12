@@ -22,7 +22,7 @@ class ListElement extends LitElement {
     const mainColor = "blue";
     return css`
       :host {
-        color: ${unsafeCSS(mainColor)};
+        background-color: blue;
         text-align: center;
         margin-top: 35%;
         font-family: Roboto;
