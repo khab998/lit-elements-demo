@@ -4,7 +4,8 @@ class ListElement extends LitElement {
   static get properties() {
     return {
       lists: { type: Array },
-      demoObject: { type: Object }
+      demoObject: { type: Object },
+      currentNum: { type: Number }
     };
   }
   constructor() {
@@ -15,6 +16,7 @@ class ListElement extends LitElement {
       birth: "",
       skill: ""
     };
+    this.currentNum = null;
   }
   render() {
     return html`
@@ -30,10 +32,12 @@ class ListElement extends LitElement {
       <h1>Registration</h1>
 
       ${this.lists.map(
-        val => html`
-          <p>Names: ${val.name}</p>
-          <p>Birthday: ${val.birth}</p>
-          <p>Skill: ${val.skill}</p>
+        (val, i) => html`
+          <div @click="${this.editContents}" data-num=${i}>
+            <p>Names: ${val.name}</p>
+            <p>Birthday: ${val.birth}</p>
+            <p>Skill: ${val.skill}</p>
+          </div>
         `
       )}
 
@@ -85,17 +89,26 @@ class ListElement extends LitElement {
       ...this.demoObject,
       [props]: event.currentTarget.value
     };
-    console.log(this.demoObject);
   }
   currentValue() {
-    this.lists = [...this.lists, this.demoObject];
+    if (this.currentNum !== null) {
+      this.lists.splice(this.currentNum, 1, this.demoObject);
+      this.requestUpdate();
+    } else {
+      this.lists = [...this.lists, this.demoObject];
+    }
     this.demoObject = {
       name: "",
       birth: "",
       skill: ""
     };
+    this.currentNum = null;
   }
-  editContents() {}
+  editContents(event) {
+    const num = event.currentTarget.dataset.num;
+    this.currentNum = num;
+    this.demoObject = this.lists[num];
+  }
 
   deleteContents() {}
 }
