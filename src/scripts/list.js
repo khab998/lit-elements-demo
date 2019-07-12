@@ -1,4 +1,4 @@
-import { LitElement, html } from "lit-element";
+import { LitElement, html, css, unsafeCSS } from "lit-element";
 
 class ListElement extends LitElement {
   static get properties() {
@@ -18,20 +18,27 @@ class ListElement extends LitElement {
     };
     this.currentNum = null;
   }
+  static get styles() {
+    const mainColor = "blue";
+    return css`
+      :host {
+        color: ${unsafeCSS(mainColor)};
+        text-align: center;
+        margin-top: 35%;
+        font-family: Roboto;
+        font-style: oblique;
+      }
+      .container {
+        align-content: flex-start;
+      }
+    `;
+  }
   render() {
     return html`
-      <style>
-        :host {
-          text-align: center;
-          margin-top: 35%;
-          font-family: Roboto;
-          font-style: oblique;
-        }
-      </style>
       <h1>Registration</h1>
       ${this.lists.map(
         (val, i) => html`
-          <div @click="${this.editContents}" data-num=${i}>
+          <div class="container" @click="${this.editContents}" data-num=${i}>
             <p>Name: ${val.name}</p>
             <p>Birthday: ${val.birth}</p>
             <p>Skill: ${val.skill}</p>
