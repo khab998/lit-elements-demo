@@ -19,10 +19,10 @@ class ListElement extends LitElement {
     this.currentNum = null;
   }
   static get styles() {
-    const mainColor = "blue";
+    const mainColor = "grey";
     return css`
       :host {
-        background-color: blue;
+        color: ${unsafeCSS(mainColor)};
         text-align: center;
         margin-top: 35%;
         font-family: Roboto;
