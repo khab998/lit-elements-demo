@@ -1,12 +1,11 @@
 import { LitElement, html } from "lit-element";
-import data from "./profiles";
 
 class ListElement extends LitElement {
   static get properties() {
     return {
       lists: { type: Array },
       demoObject: { type: Object },
-      edit: { type: Boolean }
+      currentNum: { type: Number }
     };
   }
   constructor() {
@@ -17,7 +16,7 @@ class ListElement extends LitElement {
       birth: "",
       skill: ""
     };
-    this.edit = false;
+    this.currentNum = null;
   }
   render() {
     return html`
@@ -29,94 +28,93 @@ class ListElement extends LitElement {
           font-style: oblique;
         }
       </style>
-
       <h1>Registration</h1>
-
       ${this.lists.map(
-        val => html`
-          <p>
-            <span @click=${this.figureChange} data-props="valName">
-              Names: ${val.name}
-            </span>
-          </p>
-          <p>
-            <span @click=${this.figureChange} data-props="valBirth">
-              Birthday: ${val.birth}
-            </span>
-          </p>
-          <p>
-            <span @click=${this.figureChange} data-props="valSkill">
-              Skill: ${val.skill}
-            </span>
-          </p>
+        (val, i) => html`
+          <div @click="${this.editContents}" data-num=${i}>
+            <p>Name: ${val.name}</p>
+            <p>Birthday: ${val.birth}</p>
+            <p>Skill: ${val.skill}</p>
+          </div>
         `
       )}
-
-      <p>
-        <span
-          >Name:
-          <input
-            .value="${this.demoObject.name}"
-            @change=${this.handleDemoChange}
-            id="name"
-            name="nombre"
-            data-props="name"
-          /> </span
-        ><br />
-        <span
-          >Birth:
-          <input
-            .value="${this.demoObject.birth}"
-            @change=${this.handleDemoChange}
-            id="birthday"
-            name="birth"
-            data-props="birth"
-          /> </span
-        ><br />
-        <span
-          >Skill:
-          <input
-            .value=${this.demoObject.skill}
-            @change=${this.handleDemoChange}
-            id="skill"
-            name="skiller"
-            data-props="skill"
-          /> </span
-        ><br />
-      </p>
-      <p>
+      <div>
+        <span>Name:</span>
+        <input
+          type="text"
+          .value=${this.demoObject.name}
+          @change="${this.handleDemoChange}"
+          id="name"
+          name="nombre"
+          data-props="name"
+        />
+      </div>
+      <div>
+        <span>Birth:</span>
+        <input
+          type="text"
+          .value=${this.demoObject.birth}
+          @change="${this.handleDemoChange}"
+          id="birthday"
+          name="birth"
+          data-props="birth"
+        />
+      </div>
+      <div>
+        <span>Skill:</span>
+        <input
+          type="text"
+          .value=${this.demoObject.skill}
+          @change="${this.handleDemoChange}"
+          id="skill"
+          name="skiller"
+          data-props="skill"
+        />
+      </div>
+      <div>
         <button id="button" @click=${this.currentValue}>Add</button>
-      </p>
-      <p>
-        <button id="edit" @click=${this.editContents}>Edit</button>
-      </p>
-      <p>
+        <button id="edit" @click=${this.valueClear}>Clear</button>
         <button id="delete" @click=${this.deleteContents}>Delete</button>
-      </p>
+      </div>
     `;
   }
-
   handleDemoChange(event) {
     const props = event.currentTarget.dataset.props;
-    this.demoObject[props] = event.currentTarget.value;
+    // this.demoObject[props] = event.currentTarget.value;
+    // this.requestUpdate();
+    this.demoObject = {
+      ...this.demoObject,
+      [props]: event.currentTarget.value
+    };
   }
   currentValue() {
-    this.lists.push(this.demoObject);
+    if (this.currentNum !== null) {
+      this.lists.splice(this.currentNum, 1, this.demoObject);
+      this.requestUpdate();
+    } else {
+      this.lists = [...this.lists, this.demoObject];
+    }
     this.demoObject = {
       name: "",
       birth: "",
       skill: ""
     };
+    console.log(this.lists);
+    this.currentNum = null;
   }
-  figureChange(event) {
-    this.edit = !this.edit;
+  editContents(event) {
     console.log(event);
-    console.log(event.currentTarget.dataset.props);
-    const props = event.currentTarget.dataset.props;
-    this.figureChange[props] = event.currentTarget.value;
-    this.lists.shift(this.figureChange);
+    const num = event.currentTarget.dataset.num;
+    this.currentNum = num;
+    this.demoObject = this.lists[num];
   }
-  editContents() {}
+  valueClear(event) {
+    event = this.demoObject = {
+      name: "",
+      birth: "",
+      skill: ""
+    };
+  }
 
   deleteContents() {}
 }
