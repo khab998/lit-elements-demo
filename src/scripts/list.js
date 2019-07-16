@@ -20,11 +20,17 @@ class ListElement extends LitElement {
   }
   static get styles() {
     return css`
+      header {
+        background-color: #0099ff;
+        height: 50px;
+        margin-bottom: 30px;
+      }
       h1 {
         text-align: center;
         margin-right: 20px;
         font-family: Roboto;
         font-style: oblique;
+        color: white;
       }
       .name {
         text-align: center;
@@ -38,16 +44,22 @@ class ListElement extends LitElement {
         text-align: center;
         margin-right: 42px;
       }
+      .button {
+        display: flex;
+        justify-content: flex-start;
+        margin-left: 80px;
+      }
       .add {
         display: block;
         text-align: center;
         color: #fff;
         text-decoration: none;
-        text-align: center;
         background-color: #f39800;
         border-radius: 5px;
         -webkit-transition: all 0.5s;
         transition: all 0.5s;
+        margin-left: 42%;
+        margin-top: 1%;
       }
       .add:hover {
         background-color: #f9c500;
@@ -57,11 +69,11 @@ class ListElement extends LitElement {
         text-align: center;
         color: #fff;
         text-decoration: none;
-        text-align: center;
         background-color: #f39800;
         border-radius: 5px;
         -webkit-transition: all 0.5s;
         transition: all 0.5s;
+        margin-top: 1%;
       }
       .clear:hover {
         background-color: #f9c500;
@@ -72,19 +84,15 @@ class ListElement extends LitElement {
         text-align: center;
         color: #fff;
         text-decoration: none;
-        text-align: center;
         background-color: #f39800;
         border-radius: 5px;
         -webkit-transition: all 0.5s;
         transition: all 0.5s;
+        margin-top: 1%;
       }
       .delete:hover {
         background-color: #f9c500;
       }
-      .button {
-        text-align: center;
-      }
-
       .container {
         margin-top: 5%;
         display: inline-block;
@@ -114,8 +122,9 @@ class ListElement extends LitElement {
   }
   render() {
     return html`
-      <h1>Registration</h1>
-
+      <header>
+        <h1>Registration</h1>
+      </header>
       <div class="name">
         <span>Name:</span>
         <input
@@ -151,21 +160,15 @@ class ListElement extends LitElement {
       </div>
 
       <div class="button">
-        <div>
-          <button id="button" class="add" @click=${this.currentValue}>
-            Add
-          </button>
-        </div>
-        <div>
-          <button id="edit" class="clear" @click=${this.valueClear}>
-            Clear
-          </button>
-        </div>
-        <div>
-          <button id="delete" class="delete" @click=${this.deleteContents}>
-            Delete
-          </button>
-        </div>
+        <button id="button" class="add" @click=${this.currentValue}>
+          Add
+        </button>
+        <button id="edit" class="clear" @click=${this.valueClear}>
+          Clear
+        </button>
+        <button id="delete" class="delete" @click=${this.deleteContents}>
+          Delete
+        </button>
       </div>
 
       ${this.lists.map(
