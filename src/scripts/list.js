@@ -97,12 +97,15 @@ class ListElement extends LitElement {
       .delete:hover {
         background-color: #f9c500;
       }
-      .container {
-        margin-top: 5%;
+      .box1 {
         display: flex;
-        align-items: stretch;
-        width: 16%;
-        flex-grow: 1;
+        flex-wrap: wrap-reverse;
+        width: 400px;
+      }
+      .container {
+        margin-top: 2%;
+        display: flex;
+        width: 300px;
         flex-direction: column;
         margin-left: 3%;
         border: 2px solid gray;
@@ -110,12 +113,7 @@ class ListElement extends LitElement {
         background-color: #eeeeee;
         padding: 10px;
       }
-      .box1 {
-        display: flex;
-        list-style: none;
-        justify-content: center;
-        width: 16%;
-      }
+
       .Name {
         margin-left: 20px;
       }
@@ -125,11 +123,9 @@ class ListElement extends LitElement {
       .footer {
         display: flex;
         flex-grow: 2;
-        background-color: #89c7de;
-        color: #fff;
         text-align: center;
         padding: 30px 0;
-        position: absolute;
+        position: sticky;
         bottom: 0;
       }
     `;
