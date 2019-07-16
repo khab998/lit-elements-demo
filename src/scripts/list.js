@@ -20,6 +20,9 @@ class ListElement extends LitElement {
   }
   static get styles() {
     return css`
+      body {
+        max-width: 980px;
+      }
       header {
         background-color: #0099ff;
         height: 50px;
@@ -36,13 +39,14 @@ class ListElement extends LitElement {
         text-align: center;
         margin-right: 60px;
       }
+
       .birth {
         text-align: center;
-        margin-right: 50px;
+        margin-right: 88px;
       }
       .skill {
         text-align: center;
-        margin-right: 42px;
+        margin-right: 43px;
       }
       .button {
         display: flex;
@@ -50,7 +54,7 @@ class ListElement extends LitElement {
         margin-left: 80px;
       }
       .add {
-        display: block;
+        display: flex;
         text-align: center;
         color: #fff;
         text-decoration: none;
@@ -65,7 +69,7 @@ class ListElement extends LitElement {
         background-color: #f9c500;
       }
       .clear {
-        display: block;
+        display: flex;
         text-align: center;
         color: #fff;
         text-decoration: none;
@@ -80,7 +84,7 @@ class ListElement extends LitElement {
       }
 
       .delete {
-        display: block;
+        display: flex;
         text-align: center;
         color: #fff;
         text-decoration: none;
@@ -95,28 +99,38 @@ class ListElement extends LitElement {
       }
       .container {
         margin-top: 5%;
-        display: inline-block;
-        flex-wrap: wrap;
-        vertical-align: bottom;
-        justify-content: center;
+        display: flex;
+        align-items: stretch;
+        width: 16%;
+        flex-grow: 1;
         flex-direction: column;
         margin-left: 3%;
         border: 2px solid gray;
         border-radius: 8px;
-        background-color: #f8f8ff;
+        background-color: #eeeeee;
         padding: 10px;
       }
-      .Name {
+      .box1 {
         display: flex;
-        align-content: flex-start;
+        list-style: none;
+        justify-content: center;
+        width: 16%;
       }
-      .Birthday {
-        display: flex;
-        align-content: flex-start;
+      .Name {
+        margin-left: 20px;
       }
       .Skill {
+        margin-left: 33px;
+      }
+      .footer {
         display: flex;
-        align-content: flex-start;
+        flex-grow: 2;
+        background-color: #89c7de;
+        color: #fff;
+        text-align: center;
+        padding: 30px 0;
+        position: absolute;
+        bottom: 0;
       }
     `;
   }
@@ -130,6 +144,7 @@ class ListElement extends LitElement {
         <input
           type="text"
           .value=${this.demoObject.name}
+          style="width:250px; height:25px"
           @change="${this.handleDemoChange}"
           id="name"
           name="nombre"
@@ -137,10 +152,11 @@ class ListElement extends LitElement {
         />
       </div>
       <div class="birth">
-        <span>Birth:</span>
+        <span>Birth Day:</span>
         <input
           type="text"
           .value=${this.demoObject.birth}
+          style="width:250px; height:25px;margin-top:4px"
           @change="${this.handleDemoChange}"
           id="birthday"
           name="birth"
@@ -152,6 +168,7 @@ class ListElement extends LitElement {
         <input
           type="text"
           .value=${this.demoObject.skill}
+          style="width:250px; height:25px; margin-top:4px"
           @change="${this.handleDemoChange}"
           id="skill"
           name="skiller"
@@ -173,13 +190,24 @@ class ListElement extends LitElement {
 
       ${this.lists.map(
         (val, i) => html`
-          <div class="container" @click="${this.editContents}" data-num=${i}>
-            <div class="Name"><p>Name: ${val.name}</p></div>
-            <div class="Birthday"><p>Birthday: ${val.birth}</p></div>
-            <div class="Skill"><p>Skill: ${val.skill}</p></div>
+          <div class="box1">
+            <div class="container" @click="${this.editContents}" data-num=${i}>
+              <div class="Name">
+                <p>Name: ${val.name}</p>
+              </div>
+              <div class="Birthday">
+                <p>Birthday: ${val.birth}</p>
+              </div>
+              <div class="Skill"><p>Skill: ${val.skill}</p></div>
+            </div>
           </div>
         `
       )}
+      <div class="footer">
+        <footer>
+          <p>(c)copy right</p>
+        </footer>
+      </div>
     `;
   }
   handleDemoChange(event) {
