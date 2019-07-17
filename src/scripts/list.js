@@ -111,14 +111,17 @@ class ListElement extends LitElement {
       .box1 {
         display: flex;
         flex-wrap: wrap;
-        flex-direction: row;
+        justify-content: center;
+        /* flex-direction: row; */
         /* justify-content: flex-start; */
         padding: 10px;
       }
       .container {
+        display: flex;
         justify-content: center;
         flex-direction: column;
         border: 2px solid gray;
+        flex-basis: 20%;
         border-radius: 8px;
         background-color: #eeeeee;
         padding: 10px;
@@ -131,14 +134,20 @@ class ListElement extends LitElement {
       .Name {
         /* margin-left: 20px; */
         display: flex;
+        flex-basis: 90%;
       }
       .Birthday {
         display: flex;
+        flex-basis: 90%;
       }
+
       .Skill {
-        /* margin-left: 33px; */
         display: flex;
-        flex-basis: 20%;
+        flex-basis: 90%;
+        /* align-self: auto; */
+      }
+      .Skill.p {
+        margin-left: 15%;
       }
       .footer {
         display: flex;
