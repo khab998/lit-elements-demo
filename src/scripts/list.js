@@ -21,7 +21,13 @@ class ListElement extends LitElement {
   static get styles() {
     return css`
       body {
+        /* min-width: 540px; */
         max-width: 980px;
+      }
+
+      .cssStart {
+        max-width: 980px;
+        margin: auto;
       }
       header {
         background-color: #0099ff;
@@ -29,8 +35,8 @@ class ListElement extends LitElement {
         margin-bottom: 30px;
       }
       h1 {
-        text-align: center;
-        margin-right: 20px;
+        display: flex;
+        justify-content: center;
         font-family: Roboto;
         font-style: oblique;
         color: white;
@@ -104,14 +110,20 @@ class ListElement extends LitElement {
       .box1 {
         display: flex;
         flex-wrap: wrap;
-        justify-content: space-around;
+        flex-direction: row;
+        /* justify-content: flex-start; */
+        padding: 10px;
       }
       .container {
-        display: flex;
+        justify-content: center;
         flex-direction: column;
         border: 2px solid gray;
         border-radius: 8px;
         background-color: #eeeeee;
+        padding: 10px;
+        margin: 5px;
+        box-shadow: 0px 0px 8px #777777 inset;
+        max-width: 300px;
       }
 
       .Name {
@@ -124,11 +136,12 @@ class ListElement extends LitElement {
       .Skill {
         /* margin-left: 33px; */
         display: flex;
+        flex-basis: 20%;
       }
       .footer {
         display: flex;
-        flex-grow: 2;
         justify-content: center;
+        flex-grow: 2;
         position: sticky;
         bottom: 0;
       }
@@ -139,74 +152,80 @@ class ListElement extends LitElement {
       <header>
         <h1>Registration</h1>
       </header>
-      <div class="name">
-        <span>Name:</span>
-        <input
-          type="text"
-          .value=${this.demoObject.name}
-          style="width:250px; height:25px"
-          @change="${this.handleDemoChange}"
-          id="name"
-          name="nombre"
-          data-props="name"
-        />
-      </div>
-      <div class="birth">
-        <span>Birth Day:</span>
-        <input
-          type="text"
-          .value=${this.demoObject.birth}
-          style="width:250px; height:25px;margin-top:4px"
-          @change="${this.handleDemoChange}"
-          id="birthday"
-          name="birth"
-          data-props="birth"
-        />
-      </div>
-      <div class="skill">
-        <span>Skill:</span>
-        <input
-          type="text"
-          .value=${this.demoObject.skill}
-          style="width:250px; height:25px; margin-top:4px"
-          @change="${this.handleDemoChange}"
-          id="skill"
-          name="skiller"
-          data-props="skill"
-        />
-      </div>
+      <div class="cssStart">
+        <div class="name">
+          <span>Name:</span>
+          <input
+            type="text"
+            .value=${this.demoObject.name}
+            style="width:250px; height:25px"
+            @change="${this.handleDemoChange}"
+            id="name"
+            name="nombre"
+            data-props="name"
+          />
+        </div>
+        <div class="birth">
+          <span>Birth Day:</span>
+          <input
+            type="text"
+            .value=${this.demoObject.birth}
+            style="width:250px; height:25px;margin-top:4px"
+            @change="${this.handleDemoChange}"
+            id="birthday"
+            name="birth"
+            data-props="birth"
+          />
+        </div>
+        <div class="skill">
+          <span>Skill:</span>
+          <input
+            type="text"
+            .value=${this.demoObject.skill}
+            style="width:250px; height:25px; margin-top:4px"
+            @change="${this.handleDemoChange}"
+            id="skill"
+            name="skiller"
+            data-props="skill"
+          />
+        </div>
 
-      <div class="button">
-        <button id="button" class="add" @click=${this.currentValue}>
-          Add
-        </button>
-        <button id="edit" class="clear" @click=${this.valueClear}>
-          Clear
-        </button>
-        <button id="delete" class="delete" @click=${this.deleteContents}>
-          Delete
-        </button>
-      </div>
+        <div class="button">
+          <button id="button" class="add" @click=${this.currentValue}>
+            Add
+          </button>
+          <button id="edit" class="clear" @click=${this.valueClear}>
+            Clear
+          </button>
+          <button id="delete" class="delete" @click=${this.deleteContents}>
+            Delete
+          </button>
+        </div>
 
-      <div class="box1">
-        ${this.lists.map(
-          (val, i) => html`
-            <div class="container" @click="${this.editContents}" data-num=${i}>
-              <div class="Name">
-                <p>Name: ${val.name}</p>
+        <div class="box1">
+          ${this.lists.map(
+            (val, i) => html`
+              <div
+                class="container"
+                @click="${this.editContents}"
+                data-num=${i}
+              >
+                <div class="Name">
+                  <p>Name: ${val.name}</p>
+                </div>
+                <div class="Birthday">
+                  <p>Birth: ${val.birth}</p>
+                </div>
+                <div class="Skill"><p>Skill: ${val.skill}</p></div>
               </div>
-              <div class="Birthday">
-                <p>Birth: ${val.birth}</p>
-              </div>
-              <div class="Skill"><p>Skill: ${val.skill}</p></div>
-            </div>
-          `
-        )}
-      </div>
-      <div class="footer">
-        <footer>
-          <p>(c)copy right</p>
-        </footer>
+            `
+          )}
+        </div>
+        <div class="footer">
+          <footer>
+            <p>(c)copy right</p>
+          </footer>
+        </div>
       </div>
     `;
   }
@@ -240,6 +259,7 @@ class ListElement extends LitElement {
     this.currentNum = num;
     this.demoObject = this.lists[num];
   }
+
   valueClear(event) {
     event = this.demoObject = {
       name: "",
