@@ -1,19 +1,11 @@
-import { LitElement, html } from "lit-element";
+import { LitElement, html, property, customElement } from "lit-element";
 
-class MyElement extends LitElement {
-  static get properties() {
-    return {
-      message: { type: String },
-      myBool: { type: Boolean },
-      myArray: { type: Array }
-    };
-  }
-  constructor() {
-    super();
-    this.message = "Hello world! From my-element";
-    this.myArray = ["an", "array", "of", "test", "data"];
-    this.myBool = true;
-  }
+@customElement("simple-greeting")
+export class MyElement extends LitElement {
+  @property({ type: String }) message = "Hello world! From my-element";
+  @property({ type: Array }) myArray = ["an", "array", "of", "test", "data"];
+  @property({ type: Boolean }) myBool = true;
+
   render() {
     return html`
       <p>${this.message}</p>
@@ -35,10 +27,9 @@ class MyElement extends LitElement {
       <button @click=${this.clickHandler}>Click</button>
     `;
   }
-  clickHandler(event) {
+  // any型でチェックを外します
+  clickHandler(event: any) {
     console.log(event.target);
     this.myBool = !this.myBool;
   }
 }
-
-customElements.define("simple-greeting", MyElement);
