@@ -121,14 +121,14 @@ class ListElement extends LitElement {
         justify-content: center;
         flex-direction: column;
         border: 2px solid gray;
-        flex-basis: 20%;
-        border-radius: 8px;
+        flex-basis: auto;
+        border-radius: 15px;
         background-color: #eeeeee;
         padding: 10px;
         margin: 3px;
+        margin-bottom: 4px;
         margin-left: 30px;
         box-shadow: 0px 0px 8px #777777 inset;
-        max-width: 250px;
       }
 
       .Name {
@@ -144,7 +144,9 @@ class ListElement extends LitElement {
       .Skill {
         display: flex;
         flex-basis: 90%;
-        /* align-self: auto; */
+        align-self: auto;
+        line-break: normal;
+        /* text-indent: -1em; */
       }
       .Skill.p {
         margin-left: 15%;
@@ -153,7 +155,6 @@ class ListElement extends LitElement {
         display: flex;
         justify-content: center;
         flex-grow: 2;
-        position: sticky;
         bottom: 0;
       }
     `;
