@@ -99,26 +99,26 @@ class ListElement extends LitElement {
       }
       .box1 {
         display: flex;
-        flex-wrap: wrap-reverse;
-        width: 400px;
+        flex-wrap: wrap;
       }
       .container {
-        margin-top: 2%;
         display: flex;
-        width: 300px;
         flex-direction: column;
-        margin-left: 3%;
         border: 2px solid gray;
         border-radius: 8px;
         background-color: #eeeeee;
-        padding: 10px;
       }
 
       .Name {
-        margin-left: 20px;
+        /* margin-left: 20px; */
+        display: flex;
+      }
+      .Birthday {
+        display: flex;
       }
       .Skill {
-        margin-left: 33px;
+        /* margin-left: 33px; */
+        display: flex;
       }
       .footer {
         display: flex;
@@ -184,21 +184,21 @@ class ListElement extends LitElement {
         </button>
       </div>
 
-      ${this.lists.map(
-        (val, i) => html`
-          <div class="box1">
+      <div class="box1">
+        ${this.lists.map(
+          (val, i) => html`
             <div class="container" @click="${this.editContents}" data-num=${i}>
               <div class="Name">
                 <p>Name: ${val.name}</p>
               </div>
               <div class="Birthday">
-                <p>Birthday: ${val.birth}</p>
+                <p>Birth: ${val.birth}</p>
               </div>
               <div class="Skill"><p>Skill: ${val.skill}</p></div>
             </div>
-          </div>
-        `
-      )}
+          `
+        )}
+      </div>
       <div class="footer">
         <footer>
           <p>(c)copy right</p>
