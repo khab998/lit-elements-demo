@@ -45,24 +45,26 @@ class ListElement extends LitElement {
         margin-right: 88px;
       }
       .skill {
-        text-align: center;
+        display: flex;
+        justify-content: center;
         margin-right: 43px;
       }
       .button {
         display: flex;
-        justify-content: flex-start;
-        margin-left: 80px;
+        justify-content: center;
+        /* margin-left: 80px; */
       }
       .add {
         display: flex;
-        text-align: center;
+        /* text-align: center; */
+        justify-content: center;
         color: #fff;
         text-decoration: none;
         background-color: #f39800;
         border-radius: 5px;
         -webkit-transition: all 0.5s;
         transition: all 0.5s;
-        margin-left: 42%;
+        /* /* margin-left: 42%; */
         margin-top: 1%;
       }
       .add:hover {
@@ -70,7 +72,8 @@ class ListElement extends LitElement {
       }
       .clear {
         display: flex;
-        text-align: center;
+        /* text-align: center; */
+        justify-content: center;
         color: #fff;
         text-decoration: none;
         background-color: #f39800;
@@ -85,7 +88,8 @@ class ListElement extends LitElement {
 
       .delete {
         display: flex;
-        text-align: center;
+        /* text-align: center; */
+        justify-content: center;
         color: #fff;
         text-decoration: none;
         background-color: #f39800;
@@ -100,6 +104,7 @@ class ListElement extends LitElement {
       .box1 {
         display: flex;
         flex-wrap: wrap;
+        justify-content: space-around;
       }
       .container {
         display: flex;
@@ -123,8 +128,7 @@ class ListElement extends LitElement {
       .footer {
         display: flex;
         flex-grow: 2;
-        text-align: center;
-        padding: 30px 0;
+        justify-content: center;
         position: sticky;
         bottom: 0;
       }
