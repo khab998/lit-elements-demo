@@ -30,9 +30,10 @@ class ListElement extends LitElement {
         margin: auto;
       }
       header {
-        background-color: #0099ff;
+        background-color: lightskyblue;
         height: 50px;
         margin-bottom: 30px;
+        border-radius: 5px;
       }
       h1 {
         display: flex;
@@ -121,9 +122,10 @@ class ListElement extends LitElement {
         border-radius: 8px;
         background-color: #eeeeee;
         padding: 10px;
-        margin: 5px;
+        margin: 3px;
+        margin-left: 30px;
         box-shadow: 0px 0px 8px #777777 inset;
-        max-width: 300px;
+        max-width: 250px;
       }
 
       .Name {
